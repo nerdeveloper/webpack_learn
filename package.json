@@ -9,6 +9,7 @@
   "dependencies": {
     "jquery": "^3.3.1",
     "webpack-dev-server": "^3.1.9",
+    "webpack-node-externals": "^1.7.2",
     "wow.js": "^1.2.2"
   },
   "devDependencies": {
