@@ -1,5 +1,5 @@
 const path = require('path');
-const webpack = require('.');
+const webpack = require('webpack');
 
 module.exports = {
   entry: [
@@ -8,22 +8,12 @@ module.exports = {
 
   ],
   output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js'
+    filename: '[name].bundle.js',
+    path: path.resolve(__dirname, 'dist')
   },
   
   module: {
-    loaders: [
-      { test: /\.js$/, exclude: /node-modules/, loader: 'babel-loader' },
-      { test: /\.html$/, loader: 'raw-loader', exclude: /node_modules/ },
-      {   test: /\.(css|scss|sass)$/,
-          loader: ExtractTextPlugin.extract({
-              fallback: "style-loader",
-              use: ['css-loader', 'postcss-loader', 'sass-loader']
-          }),
-          exclude: /node_modules/
-      }           
-  ],
+    
     rules: [
       {
         test: /\.exec\.js$/,
@@ -31,6 +21,7 @@ module.exports = {
       }
     ]
   },
+  
   plugins: [
     ...
       new webpack.ProvidePlugin({
