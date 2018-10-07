@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const nodeExternals = require('webpack-node-externals');
 
 module.exports = {
   entry: [
@@ -11,7 +12,12 @@ module.exports = {
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist')
   },
-  
+  externals: [nodeExternals()], // in order to ignore all modules in node_modules folder  
+ optimization: {
+    splitChunks: {
+       chunks: 'all'
+     }
+   },
   module: {
     
     rules: [
@@ -21,17 +27,17 @@ module.exports = {
       }
     ]
   },
-  
-  plugins: [
-    ...
-      new webpack.ProvidePlugin({
-        $: 'jquery',
-        jQuery: 'jquery',
-        'window.jQuery': 'jquery',
-        Popper: ['popper.js', 'default'],            
+
+  // plugins: [
+  //   ...
+  //     new webpack.ProvidePlugin({
+  //       $: 'jquery',
+  //       jQuery: 'jquery',
+  //       'window.jQuery': 'jquery',
+  //       Popper: ['popper.js', 'default']           
         
-      })
+  //     }),
     
-  ]
+  // ],
 
 };
