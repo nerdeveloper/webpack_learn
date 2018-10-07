@@ -1,2 +1,2 @@
 import 'bootstrap';
-import './css/style.css'
+import css from './css/style.css'

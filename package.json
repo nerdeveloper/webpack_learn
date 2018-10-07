@@ -25,12 +25,15 @@
     "sass-loader": "^7.1.0",
     "script-loader": "^0.7.2",
     "style-loader": "^0.23.0",
+    "superfish": "^1.7.10",
+    "url-loader": "^1.1.1",
     "webpack": "^4.20.2",
     "webpack-cli": "^3.1.2"
   },
   "scripts": {
     "build": "webpack -d",
-    "commit": "git add . && git cz"
+    "commit": "git add . && git cz",
+    "webpack": "rm -rf ./dist && webpack"
   },
   "author": "Tammy",
   "license": "ISC",

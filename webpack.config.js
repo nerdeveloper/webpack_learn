@@ -1,5 +1,5 @@
 const path = require('path');
-//const webpack = require('webpack');
+const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals');
 
 module.exports = {
@@ -13,30 +13,49 @@ module.exports = {
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist')
   },
-  externals: [nodeExternals()], // in order to ignore all modules in node_modules folder  
+  plugins: [
+    new webpack.ProvidePlugin({
+      $: "jquery",
+      jQuery: "jquery"
+      
+
+   })
+],
+  externals: [
+    
+    nodeExternals()], // in order to ignore all modules in node_modules folder  
  optimization: {
     splitChunks: {
        chunks: 'all'
      }
    },
+   externals: {
+    'jqueryui': 'jQuery',
+    'bootstrap': 'jQuery'
+},
    module: {
-
-    rules: [
-      {
-      test: /\.(jpg|gif|png|jpe?g|svg)$/i,
-      use: [
-        'file-loader',
-        {
-          loader: 'image-webpack-loader',
-          options: {
-            bypassOnDebug: true, // webpack@1.x
-            disable: true, // webpack@2.x and newer
-          },
-        },
-      ],
-    }],
      
     rules: [
+      {
+        test: /\.(jpg|gif|png|jpe?g|svg)$/i,
+        use: [
+          'file-loader',
+          {
+            loader: 'image-webpack-loader',
+            options: {
+              bypassOnDebug: true, // webpack@1.x
+              disable: true, // webpack@2.x and newer
+            },
+          },
+        ],
+      },
+      {
+        test: /\.(jpg|png|jpeg|ttf|...)$/,
+        use: [
+         { loader: 'url-loader', options: { limit: 8192 } } 
+         // limit => file.size =< 8192 bytes ? DataURI : File
+        ]
+      },
       
       {
         test: /\.(css)$/,
@@ -69,16 +88,6 @@ module.exports = {
     ]
   },
 
-  // plugins: [
-  //   ...
-  //     new webpack.ProvidePlugin({
-  //       $: 'jquery',
-  //       jQuery: 'jquery',
-  //       'window.jQuery': 'jquery',
-  //       Popper: ['popper.js', 'default']           
-        
-  //     }),
-    
-  // ],
+
 
 };
